@@ -7,7 +7,6 @@ import total from '../../assets/total.svg';
 import api from '../../services/api';
 
 import Header from '../../components/Header';
-import Upload from '../../components/Upload';
 
 import formatValue from '../../utils/formatValue';
 import formatDate from '../../utils/formatDate';
@@ -44,7 +43,7 @@ const Dashboard: React.FC = () => {
     }
 
     loadTransactions();
-  }, [transactions, balance]);
+  }, []);
 
   return (
     <>
@@ -57,7 +56,6 @@ const Dashboard: React.FC = () => {
               <img src={income} alt="Income" />
             </header>
             <h1 data-testid="balance-income">
-              R$
               {balance && formatValue(parseFloat(balance.income))}
             </h1>
           </Card>
@@ -67,7 +65,6 @@ const Dashboard: React.FC = () => {
               <img src={outcome} alt="Outcome" />
             </header>
             <h1 data-testid="balance-outcome">
-              R$
               {balance && formatValue(parseFloat(balance.outcome))}
             </h1>
           </Card>
@@ -77,7 +74,6 @@ const Dashboard: React.FC = () => {
               <img src={total} alt="Total" />
             </header>
             <h1 data-testid="balance-total">
-              R$
               {balance && formatValue(parseFloat(balance.total))}
             </h1>
           </Card>
@@ -99,7 +95,7 @@ const Dashboard: React.FC = () => {
                 <tr key={transaction.id}>
                   <td className="title">{transaction.title}</td>
                   <td className={transaction.type}>
-                    R$
+                    {transaction.type === 'outcome' && '- '}
                     {formatValue(transaction.value)}
                   </td>
                   <td>{transaction.category.title}</td>
